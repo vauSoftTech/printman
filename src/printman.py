@@ -24,9 +24,13 @@
 
 """
 
+import sys
+import getopt
+
 
 class PrintMan:
     def __init__(self, title, subtitle):
+        super().__init__()
         self.title = title
         self.subtitle = subtitle
         self.total_lines = 72
@@ -120,8 +124,33 @@ class PrintMan:
         return
 
 
+def test():
+    p = PrintMan("Title", "Sub Title")
+    p.add_column_specs( "Col 1", "d", "5", ">")
+    p.add_column_specs("Col 2", "s", "10", "<")
+    p.add_column_specs("Col 3", "s", "19", "^")
+    p.add_column_specs("col 4", "s", "11", ">")
+    p.add_column_specs("col 5", "s", "11", ">")
+
+    p.print_titles()
+    p.print_headers()
+
+    data = ("1", "abcd", "lmnop", "xyz", 12345)
+    p.print_data(data, True)
+    data = ("2", "abcd", "lmnop", "xyz", 12345.55)
+    p.print_data(data, True)
+    data = ("3", "abcd", "", "", 5)
+    p.print_data(data, False)
+
+    p.print_footers()
+    return
+
+
 def main():
-    print("Nothing to see by running this script like this!")
+    if (len(sys.argv) >= 2) and (sys.argv[1] == "--test"):
+        test()
+    else:
+        print("Nothing to see by running this script like this!")
     return
 
 
